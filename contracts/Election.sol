@@ -1,15 +1,27 @@
-pragma solidity ^0.8.0;
+// SPDX-License-Identifier: UNLICENCED
+pragma solidity >=0.4.22 <0.9.0;
 
 contract Election {
-    // Read/write candidate
-    string public candidate;
+    // Model a Candidate
+    struct Candidate {
+        uint id;
+        string name;
+        uint voteCount;
+    }
 
-    // // Constructor
-    // function Election () public {
-    //     candidate = "Candidate 1";
-    // }
+    // Read/write candidates
+    mapping(uint => Candidate) public candidates;
 
-    constructor() {
-        candidate = "Candidate 1";
+    // Store Candidates Count
+    uint public candidatesCount;
+
+    constructor() public {
+        addCandidate("Candidate 1");
+        addCandidate("Candidate 2");
+    }
+
+    function addCandidate (string memory _name) private {
+        candidatesCount ++;
+        candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
     }
 }
