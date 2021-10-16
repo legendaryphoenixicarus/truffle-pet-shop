@@ -12,6 +12,9 @@ contract Election {
     // Read/write candidates
     mapping(uint => Candidate) public candidates;
 
+     // Store accounts that have voted
+    mapping(address => bool) public voters;
+    
     // Store Candidates Count
     uint public candidatesCount;
 
@@ -25,8 +28,6 @@ contract Election {
         candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
     }
 
-     // Store accounts that have voted
-    mapping(address => bool) public voters;
 
     function vote (uint _candidateId) public {
         // require that they haven't voted before
