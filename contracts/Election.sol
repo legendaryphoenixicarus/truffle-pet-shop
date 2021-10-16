@@ -18,7 +18,7 @@ contract Election {
     // Store Candidates Count
     uint public candidatesCount;
 
-    constructor() {
+    constructor() public {
         addCandidate("Candidate 1");
         addCandidate("Candidate 2");
     }
@@ -28,6 +28,9 @@ contract Election {
         candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
     }
 
+    event votedEvent (
+        uint indexed _candidateId
+    );
 
     function vote (uint _candidateId) public {
         // require that they haven't voted before
@@ -41,5 +44,8 @@ contract Election {
 
         // update candidate vote Count
         candidates[_candidateId].voteCount ++;
+
+        // trigger voted event
+        emit votedEvent(_candidateId);
     }
 }
